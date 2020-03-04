@@ -30,9 +30,31 @@ class Header extends Component {
 }
 
 class Content extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      body: this.props.content
+    }
+    this.changeContent = this.changeContent.bind(this);
+  }
+  
+  changeContent(e) {
+    // render alert on click
+    let answer = prompt("What would you like the body to say?");
+    // update state
+    this.setState((prevState, props) => {
+      return {
+        body: answer
+      }
+    })
+  }
+  
   render () {
     return (
-      <p>{this.props.content}</p>
+      <div>
+        <p>{this.state.body}</p>
+        <button onClick={this.changeContent}>Click to edit</button>
+      </div>
     );
   }
 }
@@ -43,10 +65,6 @@ class Comment extends Component {
       <div>
         <h3>{this.props.commentHeader}</h3>
         <p>{this.props.commentBody}</p>
-        <input type="text" name="newContent" placeholder="Type something"
-          onChange={(e) => this.addBody(e)}
-        />
-        <button onClick={(e) => this.changeBody(e)}>Change body</button>
       </div>
     )
   }
